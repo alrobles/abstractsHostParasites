@@ -28,3 +28,8 @@ LazyData: true
 RoxygenNote: 7.2.1
 Depends: 
     R (>= 2.10)
+Roxygen: list(markdown = TRUE)
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
