@@ -17,7 +17,7 @@
 #' @export
 #'
 #' @examples
-#' rand_abstract_table("your@@example.com")
+#' rand_abstract_table("alroble8@@asu.edu")
 #'
 rand_abstract_table <- function(mailto = NULL){
   if(!is.null(mailto)){
@@ -29,6 +29,8 @@ rand_abstract_table <- function(mailto = NULL){
       tibble::as_tibble() %>%
       dplyr::select(-.data$published) %>%
       tidyr::unnest(cols = "title")
+
+    suppressWarnings(
     dates <- works_sample$message$items$published$`date-parts` %>%
       purrr::map(function(x)
         if(!is.null(x)){
@@ -36,7 +38,9 @@ rand_abstract_table <- function(mailto = NULL){
         } else{
           matrix(NA)
         }
-      ) %>% purrr::map_df(tibble::as_tibble)
+      ) %>%
+      purrr::map_df(tibble::as_tibble)
+    )
     names(dates) <- c("year", "month", "day")
     works_table <- dplyr::bind_cols(works_table, dates) %>%
       dplyr::mutate(abstract = stringr::str_remove_all(.data$abstract, "<([a-z]+) *[^/]*?>")) %>%

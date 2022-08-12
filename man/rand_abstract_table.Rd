@@ -18,6 +18,6 @@ crossref api at https://api.crossref.org/works?. Use an email to identify in
 the pool and connect to the crossref API through httr2 package.
 }
 \examples{
-rand_abstract_table("your@example.com")
+rand_abstract_table("alroble8@asu.edu")
 
 }
