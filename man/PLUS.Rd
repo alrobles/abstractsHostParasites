@@ -33,7 +33,7 @@ Title
 \examples{
 \dontrun{
 PLUS(train_data = dtm_df_tfidf_train,
-    Label.obs = "Label.obs",
+    Label.obs = Label.obs,
     Sample_use_time = 30,
     l.rate = 1,
     qq = 0.1)

@@ -6,8 +6,8 @@
 #' @param l.rate control how much information from last iteration will be used in next.
 #' @param qq quantile of the probability for positive samples, used to determine the cutoff between positive and negative.
 #'
-#' @importFrom glmnet cv.glmnet predict.glmnet
-#' @importFrom stats quantile rbinom
+#' @importFrom glmnet cv.glmnet
+#' @importFrom stats quantile rbinom predict
 #'
 #' @return A list with fit.pi pred.y cutoff coef1 coef.glmnet. This are
 #' the model, predicted y, predicted coefficient, and cutoff
@@ -16,7 +16,7 @@
 #' @examples
 #' \dontrun{
 #' PLUS(train_data = dtm_df_tfidf_train,
-#'     Label.obs = "Label.obs",
+#'     Label.obs = Label.obs,
 #'     Sample_use_time = 30,
 #'     l.rate = 1,
 #'     qq = 0.1)
@@ -46,7 +46,7 @@ PLUS <- function(train_data = train_data, Label.obs = Label.obs, Sample_use_time
 
     # train cv PLR model and do prediction
     fit.pi <- glmnet::cv.glmnet(train.X[c(valid.id, sample.id),], Label.obs[c(valid.id, sample.id)], family = "binomial")
-    pred.y = glmnet::predict.glmnet(fit.pi, newx = train.X, s = "lambda.min", type = 'response')
+    pred.y = stats::predict(object = fit.pi, newx = train.X, s = "lambda.min", type = 'response')
     #valid id in Label is true positive
     cutoff = stats::quantile(pred.y[valid.id], qq)
 
@@ -83,7 +83,7 @@ PLUS <- function(train_data = train_data, Label.obs = Label.obs, Sample_use_time
 
   # overall model, use all data which is given accurate labels from previous steps
   fit.pi <-  glmnet::cv.glmnet(train.X, Label.obs, family = "binomial")
-  pred.y <-  glmnet::predict.glmnet(fit.pi, newx = train.X, s = "lambda.min", type = 'response')
+  pred.y <-  stats::predict(fit.pi, newx = train.X, s = "lambda.min", type = 'response')
   cutoff <-  stats::quantile(pred.y[valid.id], qq)
   pred.coef1 <- glmnet::coef.glmnet(fit.pi, s = "lambda.min")
 
