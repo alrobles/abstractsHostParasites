@@ -36,7 +36,7 @@ rand_abstract_table <- function(mailto = NULL){
         } else{
           matrix(NA)
         }
-      ) %>% purrr::map_df(tibble::as_tibble, .name_repair = 'unique')
+      ) %>% purrr::map_df(tibble::as_tibble)
     names(dates) <- c("year", "month", "day")
     works_table <- dplyr::bind_cols(works_table, dates) %>%
       dplyr::mutate(abstract = stringr::str_remove_all(.data$abstract, "<([a-z]+) *[^/]*?>")) %>%

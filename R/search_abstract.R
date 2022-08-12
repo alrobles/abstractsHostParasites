@@ -1,4 +1,4 @@
-#' Search Abstrac
+#' Search Abstract
 #' @description This function search an abstract in crossref
 #' (if there is any DOI) or search in PubMed with entrez API
 #'
@@ -14,20 +14,15 @@
 #' @export
 #'
 #' @examples
-#' #' \dontrun{
+#' \dontrun{
 #' doi <- "10.3389/fvets.2021.604560"
 #' title <- "American Mammals Susceptibility to Dengue"
-#' search_abstract(
-#' doi,
-#' title
-#' )
+#' mail <- "you@@email.com"
+#' search_abstract(doi = doi, title = title, email = mail)
 #' }
 search_abstract <- function(doi = NULL, title = NULL, email = NULL, APIKEY = NULL){
   if(!is.null(doi)){
-    search_table <- search_abstract_crossref(
-      doi,
-      email
-    )
+    search_table <- search_abstract_crossref(doi = doi, mailto = email)
     #return(search_table)
 
   }

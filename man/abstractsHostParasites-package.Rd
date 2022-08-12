@@ -6,6 +6,6 @@
 \alias{abstractsHostParasites-package}
 \title{abstractsHostParasites: What the Package Does (Title Case)}
 \description{
-More about what it does (maybe more than one line) Use four spaces when indenting paragraphs within the Description.
+This packages helps to create datasets of abstracts and create a model with a PU learning aproach that predicts if an abstract belongs to an specific class.
 }
 \keyword{internal}

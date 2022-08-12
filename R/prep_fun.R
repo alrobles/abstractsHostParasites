@@ -5,6 +5,7 @@
 #' @param x String with an abstract (or title) to preprocess
 #'
 #' @return A processed string
+#' @importFrom stringr str_to_lower str_replace_all
 #' @export
 #'
 #' @examples
@@ -19,5 +20,5 @@ prep_fun = function(x) {
   # collapse multiple spaces
   x = stringr::str_replace_all(x, "\\s+", " ")
   # collapse multiple line breaks
-  x = stringr::str_replace_all(x, "\\n+", " ")
+  stringr::str_replace_all(x, "\\n+", " ")
 }

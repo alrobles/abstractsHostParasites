@@ -23,9 +23,6 @@ search_abstract_with_rentrez
 \dontrun{
 doi <- "10.3389/fvets.2021.604560"
 title <- "American Mammals Susceptibility to Dengue"
-search_abstract_pubmed(
-doi,
-title
-)
+search_abstract_pubmed(doi, title)
 }
 }

@@ -1,5 +1,4 @@
-
-#' Title
+#' search_abstract_crossref
 #'
 #' @param doi A vaild doi to search in cross reference api
 #' @param mailto A valid mail to the polite pool
@@ -17,7 +16,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' #' doi <- "10.3389/fvets.2021.604560"
+#' doi <- "10.3389/fvets.2021.604560"
 #' mail <- "your@@example.com"
 #' search_abstract_crossref(doi, mail)
 #' }

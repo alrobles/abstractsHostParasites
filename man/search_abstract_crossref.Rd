@@ -2,7 +2,7 @@
 % Please edit documentation in R/search_abstract_crossref.R
 \name{search_abstract_crossref}
 \alias{search_abstract_crossref}
-\title{Title}
+\title{search_abstract_crossref}
 \usage{
 search_abstract_crossref(doi = NULL, mailto = NULL)
 }
@@ -15,11 +15,11 @@ search_abstract_crossref(doi = NULL, mailto = NULL)
 a Data frame with doi, title, abstract, year, month and day
 }
 \description{
-Title
+search_abstract_crossref
 }
 \examples{
 \dontrun{
-#' doi <- "10.3389/fvets.2021.604560"
+doi <- "10.3389/fvets.2021.604560"
 mail <- "your@example.com"
 search_abstract_crossref(doi, mail)
 }

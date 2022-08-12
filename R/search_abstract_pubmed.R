@@ -18,10 +18,7 @@
 #' \dontrun{
 #' doi <- "10.3389/fvets.2021.604560"
 #' title <- "American Mammals Susceptibility to Dengue"
-#' search_abstract_pubmed(
-#' doi,
-#' title
-#' )
+#' search_abstract_pubmed(doi, title)
 #' }
 search_abstract_pubmed <-
   function(DOI = NULL, TITLE, APIKEY = NULL){
@@ -47,7 +44,7 @@ search_abstract_pubmed <-
                           year = NA_real_,
                           month = NA_real_,
                           day = NA_real_
-                          )
+      )
     } else {
       df <- purrr::map_df(another_search$ids, function(x){
         paper_rec <- rentrez::entrez_fetch(db="pubmed", id = x, rettype="xml", parsed=TRUE)
