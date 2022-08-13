@@ -18,7 +18,7 @@ random abstracts retrived from crossref and 1730 abstracts from
 zover and GMPD database.
 }
 \examples{
-data(label_obs)
+data(df_abstracts)
 \donttest{df_abstracts}
 }
 \keyword{datasets}
