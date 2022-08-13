@@ -22,7 +22,8 @@ Imports:
     rentrez,
     stringdist,
     Matrix,
-    glmnet
+    glmnet,
+    textcat
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.1
