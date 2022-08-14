@@ -6,6 +6,11 @@
 #'
 #' @param abstracts_data_frame A data frame with abstracts and class of abstracts
 #' to be classified using PU learning via PLUS function
+#' @param term_count Minimum frequency a word should have in each document
+#' @param objetive_class string with the label of the target class of abstracts
+#' to classify
+#' @param split_prop proportion of the training and testing data
+#' to be considered for modeling.
 #' @import text2vec
 #' @importFrom dplyr mutate filter
 #' @importFrom rlang .data
@@ -19,11 +24,14 @@
 #' \dontrun{
 #' data(df_abstracts_sample)
 #' output <- automodel_pu_abstracts(df_abstracts_sample)
-#' #' }
-automodel_pu_abstracts <- function(abstracts_data_frame) {
+#' }
+automodel_pu_abstracts <- function(abstracts_data_frame,
+                                   term_count = 2,
+                                   objetive_class = "parasite",
+                                   split_prop = 0.65) {
   df_abstracts <- abstracts_data_frame %>%
-    dplyr::mutate(label_obs = ifelse(.data$class == "parasite", 1, 0))
-  train_test_split <- rsample::initial_split(df_abstracts, prop = 0.65)
+    dplyr::mutate(label_obs = ifelse(.data$class == objetive_class, 1, 0))
+  train_test_split <- rsample::initial_split(df_abstracts, prop = split_prop)
   db_abstracts_train <- rsample::training(train_test_split)
   db_abstracts_test <- rsample::testing(train_test_split)
 
@@ -45,7 +53,7 @@ automodel_pu_abstracts <- function(abstracts_data_frame) {
   v <- v %>% dplyr::filter(!grepl(pattern = "^[0-9]", .data$term ))
 
   pruned_vocab = text2vec::prune_vocabulary(v,
-                                            term_count_min = 2
+                                            term_count_min = term_count
                                             #,doc_proportion_max = 0.5
                                             #,doc_proportion_min = 0.01
   )
@@ -57,15 +65,14 @@ automodel_pu_abstracts <- function(abstracts_data_frame) {
   tfidf = text2vec::TfIdf$new()
   dtm_df_tfidf_train_matrix <- text2vec::fit_transform(dtm_train, tfidf)
   dtm_df_tfidf_test  <- text2vec::fit_transform(dtm_test, tfidf)
-  #  dtm_df_train <- as.matrix(dtm_df_tfidf_train) %>% as_tibble()
-  #dtm_df_test <- as.matrix(dtm_df_tfidf_test) %>% as_tibble()
-  #dtm_df_test %>% colnames %>% enframe() %>% View()
+
   label_obs_vec <- db_abstracts_train$label_obs
 
   Prediction <- abstractsHostParasites::PLUS(train_data = dtm_df_tfidf_train_matrix,
                                              Label.obs = db_abstracts_train$label_obs,
                                              Sample_use_time = 30,
-                                             l.rate = 1, qq = 0.1)
+                                             l.rate = 1,
+                                             qq = 0.1)
 
   return( list(model = Prediction, vocabulary = pruned_vocab) )
 }

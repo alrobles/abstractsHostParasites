@@ -1,12 +1,15 @@
 Package: abstractsHostParasites
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Literature Abstract Classification System
 Version: 0.1.0
 Author: Angel Robles
 Maintainer: Angel Robles <a.l.robles.fernandez@gmail.com>
-Description: This packages helps to create datasets of abstracts
-    and create a model with a PU learning aproach that predicts
-    if an abstract belongs to an specific class.
+URL: https://github.com/alrobles/abstractsHostParasites
+Description: Create abstract classification models with PU learning approach 
+   using a set of abstract of an specific class and random abstracts labeled
+   as unknown class. Also helps to get random abstracts from connecting
+   to the 'CrossRef' 'API'. 
+BugReports: https://github.com/alrobles/abstractsHostParasites/issues
 License: MIT + file LICENSE
 Imports:
     magrittr,
@@ -36,4 +39,3 @@ Roxygen: list(markdown = TRUE)
 Suggests: 
     knitr,
     rmarkdown
-VignetteBuilder: knitr

@@ -7,3 +7,5 @@
 ^\.github$
 ^README\.Rmd$
 ^vignettes$
+^CRAN-SUBMISSION$
+^cran-comments\.md$

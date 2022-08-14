@@ -4,8 +4,16 @@
 \name{abstractsHostParasites-package}
 \alias{abstractsHostParasites}
 \alias{abstractsHostParasites-package}
-\title{abstractsHostParasites: What the Package Does (Title Case)}
+\title{abstractsHostParasites: Literature Abstract Classification System}
 \description{
-This packages helps to create datasets of abstracts and create a model with a PU learning aproach that predicts if an abstract belongs to an specific class.
+Create abstract classification models with PU learning approach using a set of abstract of an specific class and random abstracts labeled as unknown class. Also helps to get random abstracts from connecting to the 'CrossRef' 'API'.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/alrobles/abstractsHostParasites}
+  \item Report bugs at \url{https://github.com/alrobles/abstractsHostParasites/issues}
+}
+
 }
 \keyword{internal}

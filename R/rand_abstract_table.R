@@ -4,7 +4,7 @@
 #' the pool and connect to the crossref API through httr2 package.
 #'
 #' @param mailto A vaild mail addres to the pool
-#'
+#' @param n A number of abstracts to retrive. Default is 100
 #' @return a data frame with doi, title abstract, year, month and day
 #' @importFrom httr2 request req_user_agent req_perform
 #' @importFrom jsonlite fromJSON
@@ -17,11 +17,14 @@
 #' @export
 #'
 #' @examples
-#' rand_abstract_table("alroble8@@asu.edu")
+#' rand_abstract_table(mailto = "alroble8@@asu.edu", n = 1)
 #'
-rand_abstract_table <- function(mailto = NULL){
+rand_abstract_table <- function(mailto = NULL, n = 100){
   if(!is.null(mailto)){
-    req <- httr2::request(base_url = "https://api.crossref.org/works?sample=100&filter=has-abstract:1&select=DOI,title,abstract,published")
+    basUrl <- "https://api.crossref.org/works?sample="
+    filterString <- "&filter=has-abstract:1&select=DOI,title,abstract,published"
+    url <- paste0(basUrl, n, filterString)
+    req <- httr2::request(base_url = url)
     req_agent <- httr2::req_user_agent(req = req, string = mailto)
     resp <- httr2::req_perform(req)
     works_sample <- jsonlite::fromJSON( rawToChar(resp$body) )

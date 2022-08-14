@@ -3,6 +3,7 @@
 export("%>%")
 export(PLUS)
 export(automodel_pu_abstracts)
+export(get_class_score)
 export(prep_fun)
 export(rand_abstract_table)
 export(search_abstract)

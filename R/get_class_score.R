@@ -15,7 +15,7 @@
 #' @examples
 #' library(dplyr)
 #' output <- automodel_pu_abstracts(df_abstracts_sample, term_count = 20)
-#' df_abstracts_score <- df_abstracts %>%
+#' df_abstracts_score <- df_abstracts_sample %>%
 #'   dplyr::slice(1:100) %>%
 #'   dplyr::select(abstract, class) %>%
 #'   dplyr::mutate(score = purrr::map_dbl(abstract, function(x){

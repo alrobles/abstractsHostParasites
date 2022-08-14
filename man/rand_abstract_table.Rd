@@ -4,10 +4,12 @@
 \alias{rand_abstract_table}
 \title{Random abstract table}
 \usage{
-rand_abstract_table(mailto = NULL)
+rand_abstract_table(mailto = NULL, n = 100)
 }
 \arguments{
 \item{mailto}{A vaild mail addres to the pool}
+
+\item{n}{A number of abstracts to retrive. Default is 100}
 }
 \value{
 a data frame with doi, title abstract, year, month and day
@@ -18,6 +20,6 @@ crossref api at https://api.crossref.org/works?. Use an email to identify in
 the pool and connect to the crossref API through httr2 package.
 }
 \examples{
-rand_abstract_table("alroble8@asu.edu")
+rand_abstract_table(mailto = "alroble8@asu.edu", n = 1)
 
 }

@@ -8,14 +8,28 @@ One of this is labeled as unknown. The model is carried out with
 an implementation of the PU learning algorithm. (You can find information
 of the algorithm in the function PLUS)}
 \usage{
-automodel_pu_abstracts(abstracts_data_frame)
+automodel_pu_abstracts(
+  abstracts_data_frame,
+  term_count = 2,
+  objetive_class = "parasite",
+  split_prop = 0.65
+)
 }
 \arguments{
 \item{abstracts_data_frame}{A data frame with abstracts and class of abstracts
 to be classified using PU learning via PLUS function}
+
+\item{term_count}{Minimum frequency a word should have in each document}
+
+\item{objetive_class}{string with the label of the target class of abstracts
+to classify}
+
+\item{split_prop}{proportion of the training and testing data
+to be considered for modeling.}
 }
 \value{
-a list of 2 objects. A model and a vocabulary associated to that model.
+a list of 2 objects. A model and a vocabulary associated
+to that model.
 }
 \description{
 Automodel is a function to create an abstract classfication
@@ -28,5 +42,5 @@ of the algorithm in the function PLUS)
 \dontrun{
 data(df_abstracts_sample)
 output <- automodel_pu_abstracts(df_abstracts_sample)
-#' }
+}
 }
