@@ -10,7 +10,11 @@
 #' @param objetive_class string with the label of the target class of abstracts
 #' to classify
 #' @param split_prop proportion of the training and testing data
-#' to be considered for modeling.
+#' @param doc_prop_min Minimal proportion of each term in document term matrix
+#' with respect to the document to be considered for modeling.
+#' @param doc_prop_max Maximum proportion of each term in document term matrix
+#' with respect to the document to be considered for modeling.
+
 #' @import text2vec
 #' @importFrom dplyr mutate filter
 #' @importFrom rlang .data
@@ -28,7 +32,9 @@
 automodel_pu_abstracts <- function(abstracts_data_frame,
                                    term_count = 2,
                                    objetive_class = "parasite",
-                                   split_prop = 0.65) {
+                                   split_prop = 0.65,
+                                   doc_prop_min = 0.1,
+                                   doc_prop_max = 0.5) {
   df_abstracts <- abstracts_data_frame %>%
     dplyr::mutate(label_obs = ifelse(.data$class == objetive_class, 1, 0))
   train_test_split <- rsample::initial_split(df_abstracts, prop = split_prop)
@@ -54,8 +60,8 @@ automodel_pu_abstracts <- function(abstracts_data_frame,
 
   pruned_vocab = text2vec::prune_vocabulary(v,
                                             term_count_min = term_count
-                                            #,doc_proportion_max = 0.5
-                                            #,doc_proportion_min = 0.01
+                                            ,doc_proportion_max = doc_prop_max
+                                            ,doc_proportion_min = doc_prop_min
   )
 
   vectorizer <-  text2vec::vocab_vectorizer(pruned_vocab)
@@ -70,7 +76,7 @@ automodel_pu_abstracts <- function(abstracts_data_frame,
 
   Prediction <- abstractsHostParasites::PLUS(train_data = dtm_df_tfidf_train_matrix,
                                              Label.obs = db_abstracts_train$label_obs,
-                                             Sample_use_time = 30,
+                                             Sample_use_time = 100,
                                              l.rate = 1,
                                              qq = 0.1)
 

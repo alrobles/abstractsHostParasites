@@ -12,7 +12,9 @@ automodel_pu_abstracts(
   abstracts_data_frame,
   term_count = 2,
   objetive_class = "parasite",
-  split_prop = 0.65
+  split_prop = 0.65,
+  doc_prop_min = 0.1,
+  doc_prop_max = 0.5
 )
 }
 \arguments{
@@ -24,8 +26,13 @@ to be classified using PU learning via PLUS function}
 \item{objetive_class}{string with the label of the target class of abstracts
 to classify}
 
-\item{split_prop}{proportion of the training and testing data
-to be considered for modeling.}
+\item{split_prop}{proportion of the training and testing data}
+
+\item{doc_prop_min}{Minimal proportion of each term in document term matrix
+with respect to the document to be considered for modeling.}
+
+\item{doc_prop_max}{Maximum proportion of each term in document term matrix
+with respect to the document to be considered for modeling.}
 }
 \value{
 a list of 2 objects. A model and a vocabulary associated
