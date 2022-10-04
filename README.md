@@ -32,36 +32,83 @@ parasite database [GMPD](https://gmpd2.ecology.uga.edu/)
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+For this example we prepare two datasets, one with abstracts from ZOVER
+database with host parasite interactions and other with random articles.
 
 ``` r
 library(abstractsHostParasites)
-## basic example code
+library(tidyverse)
+#> Warning: package 'tidyverse' was built under R version 4.1.3
+#> -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+#> v ggplot2 3.3.6     v purrr   0.3.4
+#> v tibble  3.1.8     v dplyr   1.0.9
+#> v tidyr   1.2.0     v stringr 1.4.0
+#> v readr   2.1.2     v forcats 0.5.1
+#> Warning: package 'ggplot2' was built under R version 4.1.3
+#> Warning: package 'tibble' was built under R version 4.1.3
+#> Warning: package 'tidyr' was built under R version 4.1.3
+#> Warning: package 'readr' was built under R version 4.1.3
+#> Warning: package 'dplyr' was built under R version 4.1.3
+#> Warning: package 'forcats' was built under R version 4.1.3
+#> -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+#> x dplyr::filter() masks stats::filter()
+#> x dplyr::lag()    masks stats::lag()
+
+df_abstracts_zover <- readr::read_csv("https://raw.githubusercontent.com/alrobles/abstractsHostParasites/main/data-raw/zover_doi_abstract_date.csv")
+#> Rows: 348 Columns: 9
+#> -- Column specification --------------------------------------------------------
+#> Delimiter: ","
+#> chr (6): doi, title, abstract, month, date, source
+#> dbl (2): id, year
+#> lgl (1): -
+#> 
+#> i Use `spec()` to retrieve the full column specification for this data.
+#> i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+df_abstracts_random <- readr::read_csv("https://raw.githubusercontent.com/alrobles/abstractsHostParasites/main/data-raw/df_abstracts_random.csv")
+#> Rows: 4256 Columns: 5
+#> -- Column specification --------------------------------------------------------
+#> Delimiter: ","
+#> chr (5): doi, title, abstract, class, language
+#> 
+#> i Use `spec()` to retrieve the full column specification for this data.
+#> i Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+We join together this data sets and prepare for modelling. We add a
+class in each case. We set parasite class for zover abstracts and
+unknown class for random abstracts. With do this with the help of
+`dplyr` functions
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+df_abstracts_zover <- df_abstracts_zover %>% 
+  select(doi, title, abstract) %>% 
+  mutate(class = "parasite")
+
+df_abstracts_random <- df_abstracts_random %>%
+  sample_n(1000) %>% 
+  select(doi, title, abstract) %>% 
+  mutate(class = "unknown")
+
+df_abstracts <- bind_rows(df_abstracts_zover, df_abstracts_random) %>%  
+  sample_frac(1) %>% 
+  na.exclude()
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
+We finally use the `automodel_pu_abstracts` to classify this abstracts.
 
-You can also embed plots, for example:
+``` r
+models <- df_abstracts %>% 
+  automodel_pu_abstracts(term_count = 1,
+                         split_prop = 0.85,
+                         doc_prop_max = 0.9,
+                         doc_prop_min = 0)
+```
 
-<img src="man/figures/README-pressure-1.png" width="100%" />
+We plot the final model just to look how it is.
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+``` r
+plot(models$model$fit.pi)
+```
+
+<img src="man/figures/README-cars-1.png" width="100%" />
