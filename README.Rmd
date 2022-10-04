@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 The goal of this R package abstractsHostParasites is to hold tools for generate
-text classification models and process data asociated with this task.
+text classification models and process data associated with this task.
 
 
 ## Installation
@@ -36,6 +36,8 @@ can classify if this abstrac belongs to a specific category.
 
 An application case is to consider articles related to host-parasite interactions from open databases. In we case we get refered citations
 in [Zover](http://www.mgc.ac.cn/cgi-bin/ZOVER/main.cgi) and Glogal mammal parasite database [GMPD](https://gmpd2.ecology.uga.edu/)
+
+
 
 
 ## Example

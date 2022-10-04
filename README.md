@@ -7,8 +7,8 @@
 <!-- badges: end -->
 
 The goal of this R package abstractsHostParasites is to hold tools for
-generate text classification models and process data asociated with this
-task.
+generate text classification models and process data associated with
+this task.
 
 ## Installation
 
