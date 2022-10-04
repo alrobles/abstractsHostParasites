@@ -20,7 +20,7 @@ You can install the development version of abstractsHostParasites from
 devtools::install_github("alrobles/abstractsHostParasites")
 ```
 
-## Acplication case
+## Application case
 
 The main goals of this project is to have a model that given an abstract
 can classify if this abstrac belongs to a specific category.
@@ -81,3 +81,9 @@ plot(models$model$fit.pi)
 ```
 
 <img src="man/figures/README-cars-1.png" width="100%" />
+
+## Get in touch
+
+By far, this approach can be used in different solutions. If you are
+interested in any collaboration get in contact with
+[us](mailto:a.l.robles.fernandez@gmail.com)
